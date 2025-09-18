@@ -1,0 +1,50 @@
+{
+  "tests": [
+    {
+      "name": "Test CORS preflight",
+      "method": "OPTIONS",
+      "path": "/",
+      "expectedStatus": 200,
+      "expectedHeaders": {
+        "Access-Control-Allow-Origin": "*"
+      }
+    },
+    {
+      "name": "Test create goal",
+      "method": "POST",
+      "path": "/",
+      "headers": {
+        "X-User-ID": "1"
+      },
+      "body": {
+        "title": "New Car",
+        "target": 500000,
+        "current": 50000,
+        "deadline": "2025-12-31"
+      },
+      "expectedStatus": 201,
+      "expectedBody": {
+        "success": true,
+        "goal": {
+          "title": "string",
+          "target": "number",
+          "current": "number"
+        }
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Test get goals",
+      "method": "GET",
+      "path": "/",
+      "headers": {
+        "X-User-ID": "1"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "goals": "array"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}

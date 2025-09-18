@@ -1,0 +1,51 @@
+{
+  "tests": [
+    {
+      "name": "Test CORS preflight",
+      "method": "OPTIONS",
+      "path": "/",
+      "expectedStatus": 200,
+      "expectedHeaders": {
+        "Access-Control-Allow-Origin": "*"
+      }
+    },
+    {
+      "name": "Test create transaction",
+      "method": "POST",
+      "path": "/",
+      "headers": {
+        "X-User-ID": "1"
+      },
+      "body": {
+        "type": "expense",
+        "amount": 1500,
+        "category": "Food",
+        "description": "Lunch",
+        "date": "2025-09-18"
+      },
+      "expectedStatus": 201,
+      "expectedBody": {
+        "success": true,
+        "transaction": {
+          "type": "string",
+          "amount": "number",
+          "category": "string"
+        }
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Test get transactions",
+      "method": "GET",
+      "path": "/",
+      "headers": {
+        "X-User-ID": "1"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "transactions": "array"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}
