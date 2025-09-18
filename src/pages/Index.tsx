@@ -51,23 +51,6 @@ const Index = () => {
 
   const [isAddTransactionOpen, setIsAddTransactionOpen] = useState(false);
 
-  // Mock data for charts
-  const balanceHistory = [
-    { month: 'Янв', balance: 45000 },
-    { month: 'Фев', balance: 52000 },
-    { month: 'Мар', balance: 48000 },
-    { month: 'Апр', balance: 61000 },
-    { month: 'Май', balance: 58000 },
-    { month: 'Июн', balance: 63000 },
-  ];
-
-  const expenseData = Object.entries(expensesByCategory).map(([category, amount]) => ({
-    name: category,
-    value: amount,
-  }));
-
-  const COLORS = ['#ef4444', '#f97316', '#eab308', '#22c55e', '#3b82f6', '#8b5cf6', '#ec4899'];
-
   const totalIncome = transactions
     .filter(t => t.type === 'income')
     .reduce((sum, t) => sum + t.amount, 0);
@@ -91,6 +74,23 @@ const Index = () => {
       acc[t.category] = (acc[t.category] || 0) + t.amount;
       return acc;
     }, {} as Record<string, number>);
+
+  // Mock data for charts
+  const balanceHistory = [
+    { month: 'Янв', balance: 45000 },
+    { month: 'Фев', balance: 52000 },
+    { month: 'Мар', balance: 48000 },
+    { month: 'Апр', balance: 61000 },
+    { month: 'Май', balance: 58000 },
+    { month: 'Июн', balance: 63000 },
+  ];
+
+  const expenseData = Object.entries(expensesByCategory).map(([category, amount]) => ({
+    name: category,
+    value: amount,
+  }));
+
+  const COLORS = ['#ef4444', '#f97316', '#eab308', '#22c55e', '#3b82f6', '#8b5cf6', '#ec4899'];
 
   const addTransaction = () => {
     if (newTransaction.amount && newTransaction.category && newTransaction.description) {
